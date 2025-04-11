@@ -2,77 +2,14 @@
 <html>
 <head>
     <title>Overlay Button</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: transparent;
-            -webkit-app-region: drag; /* Makes the window draggable */
-        }
-        
-        #overlay-button {
-            width: 80px;
-            height: 30px;
-            margin: 10px;
-            background-color: #1000f1;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            -webkit-app-region: no-drag; /* Makes the button clickable */
-        }
-
-        #overlay-button:hover {
-            background-color: #1004b9;
-        }
-        
-        #status-message {
-            color: white;
-            font-size: 10px;
-            margin-left: 10px;
-            margin-top: 5px;
-            font-family: sans-serif;
-            background-color: rgba(0,0,0,0.5);
-            padding: 3px;
-            border-radius: 3px;
-            display: none;
-            max-width: 250px;
-            word-wrap: break-word;
-        }
-        
-        #error-log {
-            display: none;  /* We can keep this but hide it */
-        }
-        
-        #analysis-panel {
-            background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 8px;
-            padding: 15px;
-            margin: 10px;
-            font-family: sans-serif;
-            font-size: 12px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            display: none;
-            max-width: 300px;
-        }
-        
-        .analysis-title {
-            font-weight: bold;
-            color: #1000f1;
-            margin-bottom: 8px;
-        }
-        
-        .analysis-content {
-            color: #333;
-            line-height: 1.4;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <button id="overlay-button">Review</button>
     <div id="status-message">Review saved!</div>
     <div id="error-log"></div>
     <div id="analysis-panel">
+        <div class="close-button">x</div>
         <div class="analysis-title">Analysis and Suggestions</div>
         <img id="screenshot-preview" style="max-width: 100%; margin: 10px 0; border-radius: 4px;" />
         <div class="analysis-content">Analyzing screenshot...</div>
@@ -104,6 +41,12 @@
         // Modify the button click event listener to remove the logging
         document.getElementById('overlay-button').addEventListener('click', () => {
             takeScreenshot();
+        });
+        
+        // Add this near the top with other element selections
+        document.querySelector('.close-button').addEventListener('click', () => {
+            document.getElementById('analysis-panel').style.display = 'none';
+            window.electron.ipcRenderer.send('resize-window', 100, 70);
         });
         
         async function takeScreenshot() {
@@ -140,13 +83,12 @@
                 const analysis = await window.electron.ipcRenderer.invoke('analyze-image', result.base64Data);
                 
                 // Display the analysis results
-                document.querySelector('.analysis-content').innerHTML = analysis;
+                document.querySelector('.analysis-content').innerHTML = 
+                    analysis.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                           .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                           .split('\n').map(line => `<p>${line}</p>`).join('');
                 
-                // Reset after delay
-                setTimeout(() => {
-                    analysisPanel.style.display = 'none';
-                    window.electron.ipcRenderer.send('resize-window', 100, 70);
-                }, 15000); // Increased to 15 seconds to give more time to read
+                // Remove the auto-hide timeout
                 
             } catch (error) {
                 analysisPanel.style.display = 'block';
