@@ -2,6 +2,8 @@ const { app, BrowserWindow, screen, ipcMain, systemPreferences, desktopCapturer 
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
+const dotenv = require('dotenv');
+dotenv.config();
 
 let mainWindow;
 
@@ -114,7 +116,7 @@ app.whenReady().then(() => {
       const mainSource = sources[0];
       const screenshot = mainSource.thumbnail.toDataURL();
       
-      // Save the screenshot
+      // Get base64 data
       const base64Data = screenshot.replace(/^data:image\/png;base64,/, "");
       const buffer = Buffer.from(base64Data, 'base64');
       
@@ -134,10 +136,53 @@ app.whenReady().then(() => {
       // Save the file
       fs.writeFileSync(filePath, buffer);
       
-      return { success: true, filePath };
+      return { 
+        success: true, 
+        filePath,
+        base64Data // Add base64 data to the response
+      };
     } catch (error) {
       console.error('Error taking screenshot:', error);
       return { success: false, error: error.message };
+    }
+  });
+
+  // Add this new IPC handler
+  ipcMain.handle('analyze-image', async (event, base64Image) => {
+    try {
+      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`
+        },
+        body: JSON.stringify({
+          model: "google/gemini-2.0-flash-001",
+          messages: [
+            {
+              role: "user",
+              content: [
+                {
+                  type: "text",
+                  text: "What is in this image? Provide a brief analysis."
+                },
+                {
+                  type: "image_url",
+                  image_url: {
+                    url: `data:image/png;base64,${base64Image}`
+                  }
+                }
+              ]
+            }
+          ]
+        })
+      });
+
+      const data = await response.json();
+      return data.choices[0].message.content;
+    } catch (error) {
+      console.error('Error analyzing image:', error);
+      return 'Error analyzing image: ' + error.message;
     }
   });
 });
