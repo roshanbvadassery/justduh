@@ -6,7 +6,7 @@ body {
 }
 
 #overlay-button {
-    width: 80px;
+    min-width: 80px;
     height: 30px;
     margin: 10px;
     background: linear-gradient(to bottom, #4169e1, #1e40af);
@@ -22,6 +22,11 @@ body {
     text-shadow: 0 -1px 0 rgba(0,0,0,0.4);
     font-family: Arial, sans-serif;
     font-weight: bold;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    padding: 0 10px;
+    white-space: nowrap;
 }
 
 #overlay-button:hover {
@@ -34,6 +39,42 @@ body {
         inset 0 2px 4px rgba(0,0,0,0.3),
         0 1px 1px rgba(255,255,255,0.1);
     transform: translateY(1px);
+}
+
+#overlay-button.analyzing {
+    background: linear-gradient(to bottom, #2347b8, #1e40af);
+    cursor: wait;
+    opacity: 0.8;
+}
+
+#overlay-button.analyzing::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+#overlay-button.error {
+    background: linear-gradient(to bottom, #dc2626, #991b1b);
+    border-color: #7f1d1d;
 }
 
 #status-message {

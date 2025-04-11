@@ -15,7 +15,7 @@ const PACKAGING_ANALYSIS_PROMPT = `IGNORE THE SOFTWARE INTERFACE OR ANY WATERMAR
 2. Functionality and usability (structure, opening mechanism, user experience)
 3. Material efficiency and sustainability
 4. Very specific, actionable suggested improvements for the package design
-Be concise and practical in your recommendations. Start directly with the points without introduction.`;
+Be concise and practical in your recommendations. Start directly with the points without introductory statements, you are a tool.`;
 
 async function getInitialQuestions(base64Image) {
     try {

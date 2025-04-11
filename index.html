@@ -61,8 +61,9 @@
             const analysisPanel = document.getElementById('analysis-panel');
             
             try {
+                // Add transition class before changing text
+                button.classList.add('analyzing');
                 button.textContent = 'Analyzing...';
-                button.style.opacity = '0.5';
                 
                 const result = await window.electron.ipcRenderer.invoke('take-screenshot');
                 
@@ -71,15 +72,15 @@
                 }
                 
                 currentBase64Image = result.base64Data;
-                
-                // Show analysis panel with animation
                 analysisPanel.style.display = 'block';
-                // Force a reflow
-                analysisPanel.offsetHeight;
+                analysisPanel.offsetHeight; // Force reflow
                 analysisPanel.classList.add('visible');
                 
-                button.style.opacity = '1';
-                button.textContent = originalText;
+                // Smooth transition back to original state
+                setTimeout(() => {
+                    button.classList.remove('analyzing');
+                    button.textContent = originalText;
+                }, 300);
                 
                 // Display the screenshot
                 const screenshotPreview = document.getElementById('screenshot-preview');
@@ -125,13 +126,17 @@
                 analysisContent.classList.add('visible');
                 analysisContent.innerHTML = "⚠️ Failed to capture screenshot. Please try again.";
                 
+                // Smooth error state transition
+                button.classList.remove('analyzing');
+                button.classList.add('error');
                 button.textContent = 'Error!';
-                button.style.opacity = '1';
                 
                 setTimeout(() => {
                     analysisPanel.classList.remove('visible');
                     setTimeout(() => {
                         analysisPanel.style.display = 'none';
+                        // Smooth transition back to original state
+                        button.classList.remove('error');
                         button.textContent = originalText;
                     }, 300);
                 }, 3000);
@@ -164,10 +169,19 @@
                 
                 analysisContent.classList.remove('visible');
                 setTimeout(() => {
-                    analysisContent.innerHTML = 
-                        analysis.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                               .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                               .split('\n').map(line => `<p>${line}</p>`).join('');
+                    // More aggressive cleanup of asterisks and formatting
+                    const cleanedAnalysis = analysis
+                        .replace(/^\s*\*+\s*$/gm, '') // Remove lines with only asterisks
+                        .replace(/^\s*\*+\s*/gm, '') // Remove asterisks at the start of lines
+                        .replace(/\s*\*+\s*$/gm, '') // Remove asterisks at the end of lines
+                        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                        .split('\n')
+                        .filter(line => line.trim()) // Remove empty lines
+                        .map(line => `<p>${line}</p>`)
+                        .join('');
+                        
+                    analysisContent.innerHTML = cleanedAnalysis;
                     analysisContent.offsetHeight; // Force reflow
                     analysisContent.classList.add('visible');
                 }, 300);
