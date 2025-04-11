@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const os = require('os');
 const dotenv = require('dotenv');
-const { analyzeImage } = require('./aiService');
+const { analyzeImage, getInitialQuestions } = require('./aiService');
 dotenv.config();
 
 let mainWindow;
@@ -148,9 +148,18 @@ app.whenReady().then(() => {
     }
   });
 
-  // Add this new IPC handler
-  ipcMain.handle('analyze-image', async (event, base64Image) => {
-    return await analyzeImage(base64Image);
+  // Add these new IPC handlers
+  ipcMain.handle('get-questions', async (event, base64Image) => {
+    try {
+      return await getInitialQuestions(base64Image);
+    } catch (error) {
+      console.error('Error getting questions:', error);
+      throw error;
+    }
+  });
+
+  ipcMain.handle('analyze-image', async (event, base64Image, answers) => {
+    return await analyzeImage(base64Image, answers);
   });
 });
 
