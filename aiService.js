@@ -1,5 +1,12 @@
 const fetch = require('node-fetch');
 
+const PACKAGING_ANALYSIS_PROMPT = `You are a packaging design expert. Focus ONLY on the product packaging design shown in the image (ignore any UI elements or software interface). Analyze the product packaging and provide specific feedback on:
+1. Visual appeal and branding (colors, graphics, logo placement)
+2. Functionality and usability (structure, opening mechanism, user experience)
+3. Material efficiency and sustainability
+4. Suggested improvements for the package design
+Be concise and practical in your recommendations. Rules: Start directly with the said points no introduction or anything else. Bullet points with heading and content but without the numbers or bullets.`;
+
 async function analyzeImage(base64Image) {
     try {
         const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
@@ -16,7 +23,7 @@ async function analyzeImage(base64Image) {
                         content: [
                             {
                                 type: "text",
-                                text: "You are a packaging design expert. Focus ONLY on the product packaging design shown in the image (ignore any UI elements or software interface). Analyze the product packaging and provide specific feedback on:\n1. Visual appeal and branding (colors, graphics, logo placement)\n2. Functionality and usability (structure, opening mechanism, user experience)\n3. Material efficiency and sustainability\n4. Suggested improvements for the package design\nBe concise and practical in your recommendations. Rules: Start directly with the said points no introduction or anything else. Just the points."
+                                text: PACKAGING_ANALYSIS_PROMPT
                             },
                             {
                                 type: "image_url",
