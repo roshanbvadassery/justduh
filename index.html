@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Overlay Button</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            -webkit-app-region: drag; /* Makes the window draggable */
+        }
+        
+        #overlay-button {
+            width: 80px;
+            height: 30px;
+            margin: 10px;
+            background-color: #1000f1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            -webkit-app-region: no-drag; /* Makes the button clickable */
+        }
+
+        #overlay-button:hover {
+            background-color: #1004b9;
+        }
+        
+        #status-message {
+            color: white;
+            font-size: 10px;
+            margin-left: 10px;
+            margin-top: 5px;
+            font-family: sans-serif;
+            background-color: rgba(0,0,0,0.5);
+            padding: 3px;
+            border-radius: 3px;
+            display: none;
+            max-width: 250px;
+            word-wrap: break-word;
+        }
+        
+        #error-log {
+            color: red;
+            font-size: 10px;
+            margin: 10px;
+            background-color: rgba(0,0,0,0.7);
+            padding: 5px;
+            border-radius: 3px;
+            max-height: 100px;
+            overflow-y: auto;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <button id="overlay-button">Review</button>
+    <div id="status-message">Review saved!</div>
+    <div id="error-log"></div>
+    <script>
+        let errorLog = document.getElementById('error-log');
+        
+        // Simple logging function that shows in UI and console
+        function log(message) {
+            console.log(message);
+            const timestamp = new Date().toISOString().substring(11, 19);
+            errorLog.innerHTML += `[${timestamp}] ${message}<br>`;
+            errorLog.style.display = 'block';
+        }
+        
+        function showError(message) {
+            console.error(message);
+            const timestamp = new Date().toISOString().substring(11, 19);
+            errorLog.innerHTML += `[${timestamp}] ERROR: ${message}<br>`;
+            errorLog.style.display = 'block';
+            // Increase window height to show errors
+            try {
+                window.electron.ipcRenderer.send('resize-window', 250, 200);
+            } catch (e) {
+                console.error('Failed to resize: ' + e);
+            }
+        }
+        
+        // Add click event
+        document.getElementById('overlay-button').addEventListener('click', () => {
+            log('Button clicked');
+            takeScreenshot();
+        });
+        
+        async function takeScreenshot() {
+            log('Starting screenshot capture');
+            const button = document.getElementById('overlay-button');
+            const originalText = button.textContent;
+            
+            try {
+                // Show taking screenshot indicator
+                button.textContent = 'Capturing...';
+                button.style.opacity = '0.5';
+                
+                log('Taking screenshot via main process...');
+                
+                // Call main process to take the screenshot
+                const result = await window.electron.ipcRenderer.invoke('take-screenshot');
+                
+                if (!result.success) {
+                    throw new Error(result.error);
+                }
+                
+                log(`Screenshot saved to: ${result.filePath}`);
+                
+                // Show status message with path
+                const statusMessage = document.getElementById('status-message');
+                statusMessage.textContent = `Saved to: ${result.filePath}`;
+                statusMessage.style.display = 'block';
+                
+                // Restore button
+                button.style.opacity = '1';
+                button.textContent = originalText;
+                
+                // Resize window
+                log('Resizing window');
+                window.electron.ipcRenderer.send('resize-window', 250, 120);
+                
+                // Reset after delay
+                setTimeout(() => {
+                    statusMessage.style.display = 'none';
+                    errorLog.style.display = 'none';
+                    window.electron.ipcRenderer.send('resize-window', 100, 70);
+                }, 10000); // Show for 10 seconds for debugging
+                
+            } catch (error) {
+                showError(`Screenshot error: ${error.message}`);
+                if (error.stack) {
+                    showError(`Stack: ${error.stack}`);
+                }
+                
+                button.textContent = 'Error!';
+                button.style.opacity = '1';
+                
+                // Restore button text after a delay
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 3000);
+            }
+        }
+    </script>
+</body>
+</html> 
