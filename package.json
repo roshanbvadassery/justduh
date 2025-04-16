@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Overlay button application with screenshot capability",
   "main": "main.js",
+  "author": "Overlay App Team",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder"
@@ -20,6 +21,9 @@
   },
   "dependencies": {
     "dotenv": "^16.5.0",
+    "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
     "electron": "^35.1.5",
     "electron-builder": "^26.0.12"
   }

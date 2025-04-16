@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insight Echoes - AI-Powered Packaging Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#4a75e6',
+                            DEFAULT: '#4169e1',
+                            dark: '#1e40af',
+                        },
+                        secondary: {
+                            light: '#f4f6f8',
+                            DEFAULT: '#e8eaec',
+                            dark: '#ccc',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-gradient {
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .bg-gradient-hero {
+                background: linear-gradient(to right, #4169e1, #1e40af);
+            }
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-gray-800 bg-white">
+    <!-- Header Section -->
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-200">
+        <div class="container mx-auto px-4 md:px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center">
+                    <i class="fas fa-eye text-white text-lg"></i>
+                </div>
+                <span class="text-xl font-bold text-gray-900">Insight<span class="text-primary">Echoes</span></span>
+            </div>
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#features" class="text-gray-600 hover:text-primary font-medium">Features</a>
+                <a href="#how-it-works" class="text-gray-600 hover:text-primary font-medium">How it Works</a>
+                <a href="#testimonials" class="text-gray-600 hover:text-primary font-medium">Testimonials</a>
+                <a href="#pricing" class="text-gray-600 hover:text-primary font-medium">Pricing</a>
+            </nav>
+            <div>
+                <a href="#contact" class="bg-primary hover:bg-primary-dark text-white py-2 px-4 rounded-lg shadow transition duration-200 hidden md:inline-block">Contact Us</a>
+                <button class="md:hidden text-gray-500 focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-20 pb-32 bg-gradient-hero relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1576153192621-7a3be10b356e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80')] opacity-10 bg-center bg-cover"></div>
+        <div class="container mx-auto px-4 md:px-6 relative z-10">
+            <div class="max-w-4xl mx-auto text-center mb-16">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                    Transform Your Packaging Design with AI-Powered Analysis
+                </h1>
+                <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+                    Get instant expert feedback on your packaging designs with our floating review button. Capture, analyze, and improve - all without interrupting your workflow.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#download" class="bg-white hover:bg-gray-100 text-primary font-bold py-3 px-8 rounded-lg shadow-lg transition duration-200">
+                        Download Now
+                    </a>
+                    <a href="#demo" class="bg-transparent hover:bg-white/10 text-white border border-white py-3 px-8 rounded-lg transition duration-200">
+                        Watch Demo
+                    </a>
+                </div>
+            </div>
+            <div class="max-w-5xl mx-auto relative">
+                <img src="https://images.unsplash.com/photo-1523726491678-bf852e717f6a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80" alt="Packaging Analysis Dashboard" class="rounded-xl shadow-2xl border-4 border-white/20">
+                <div class="absolute -top-6 -right-6 bg-white p-4 rounded-lg shadow-lg">
+                    <div class="flex items-center gap-2">
+                        <div class="h-10 w-10 bg-primary rounded-lg flex items-center justify-center">
+                            <i class="fas fa-check text-white"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold">AI Analysis</p>
+                            <p class="text-xs text-gray-500">Completed in 3s</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Powerful Features</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Our tool combines ease-of-use with advanced AI capabilities to deliver actionable insights for your packaging designs.
+                </p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition duration-200">
+                    <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-camera text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Instant Screenshot Analysis</h3>
+                    <p class="text-gray-600">
+                        Capture any packaging design visible on your screen with a single click, without switching applications.
+                    </p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition duration-200">
+                    <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-robot text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">AI-Powered Insights</h3>
+                    <p class="text-gray-600">
+                        Leverage advanced AI to analyze branding, functionality, material efficiency, and more in seconds.
+                    </p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition duration-200">
+                    <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-lightbulb text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Actionable Recommendations</h3>
+                    <p class="text-gray-600">
+                        Get specific, practical suggestions to enhance your packaging's visual appeal and functionality.
+                    </p>
+                </div>
+                <!-- Feature 4 -->
+                <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition duration-200">
+                    <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-thumbtack text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Always-On-Top Interface</h3>
+                    <p class="text-gray-600">
+                        Our floating button stays accessible over all applications, ready whenever inspiration strikes.
+                    </p>
+                </div>
+                <!-- Feature 5 -->
+                <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition duration-200">
+                    <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-cube text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">3D Visualization</h3>
+                    <p class="text-gray-600">
+                        View your packaging design from all angles with our integrated 3D visualization tool.
+                    </p>
+                </div>
+                <!-- Feature 6 -->
+                <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition duration-200">
+                    <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-leaf text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Sustainability Assessment</h3>
+                    <p class="text-gray-600">
+                        Evaluate the environmental impact of your packaging design with our specialized analysis tools.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-20">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Our streamlined process delivers professional feedback in just four simple steps.
+                </p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Step 1 -->
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-xl font-bold mb-6 mx-auto">1</div>
+                    <h3 class="text-xl font-bold mb-3">Click the Review Button</h3>
+                    <p class="text-gray-600">
+                        Our floating button stays on top of all applications, ready when you need it.
+                    </p>
+                </div>
+                <!-- Step 2 -->
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-xl font-bold mb-6 mx-auto">2</div>
+                    <h3 class="text-xl font-bold mb-3">Capture Your Design</h3>
+                    <p class="text-gray-600">
+                        We automatically take a screenshot of the packaging design visible on your screen.
+                    </p>
+                </div>
+                <!-- Step 3 -->
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-xl font-bold mb-6 mx-auto">3</div>
+                    <h3 class="text-xl font-bold mb-3">Answer Key Questions</h3>
+                    <p class="text-gray-600">
+                        Provide context with a few quick answers about your packaging design's goals.
+                    </p>
+                </div>
+                <!-- Step 4 -->
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-xl font-bold mb-6 mx-auto">4</div>
+                    <h3 class="text-xl font-bold mb-3">Get Expert Analysis</h3>
+                    <p class="text-gray-600">
+                        Receive comprehensive feedback and actionable suggestions in seconds.
+                    </p>
+                </div>
+            </div>
+            <div class="mt-16 text-center">
+                <a href="#demo" class="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-lg shadow transition duration-200">
+                    <i class="fas fa-play-circle"></i>
+                    Watch the Demo
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">What Our Users Say</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Packaging professionals around the world trust Insight Echoes to enhance their designs.
+                </p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="User" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Sarah Johnson</h4>
+                            <p class="text-sm text-gray-500">Senior Packaging Designer, Eco Products</p>
+                        </div>
+                    </div>
+                    <div class="mb-4 text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-600 italic">
+                        "Insight Echoes has transformed how I evaluate my packaging designs. The instant feedback has helped me spot issues I would have missed and has significantly improved our client approval rate."
+                    </p>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/men/47.jpg" alt="User" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Michael Chen</h4>
+                            <p class="text-sm text-gray-500">Product Manager, Innovate Packaging</p>
+                        </div>
+                    </div>
+                    <div class="mb-4 text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-600 italic">
+                        "The sustainability insights from Insight Echoes have been invaluable. We've reduced our packaging material usage by 15% while improving customer experience based on their recommendations."
+                    </p>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="User" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Emma Rodriguez</h4>
+                            <p class="text-sm text-gray-500">Creative Director, Brand Solutions</p>
+                        </div>
+                    </div>
+                    <div class="mb-4 text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="text-gray-600 italic">
+                        "As someone who reviews dozens of designs daily, the always-on-top feature saves me countless clicks. The AI analysis is surprisingly insightful and has caught branding inconsistencies multiple times."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Simple, Transparent Pricing</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Choose the plan that fits your needs. All plans include our core features with no hidden costs.
+                </p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Starter Plan -->
+                <div class="bg-white p-8 rounded-xl shadow-md border border-gray-200 flex flex-col">
+                    <h3 class="text-xl font-bold mb-2">Starter</h3>
+                    <p class="text-gray-600 mb-6">Perfect for individual designers</p>
+                    <div class="text-4xl font-bold mb-6">$19<span class="text-gray-500 text-sm font-normal">/month</span></div>
+                    <ul class="space-y-3 mb-8 flex-grow">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Up to 50 analyses per month</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Basic AI feedback</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Email support</span>
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="fas fa-times mr-2"></i>
+                            <span>3D visualization</span>
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="fas fa-times mr-2"></i>
+                            <span>Team collaboration</span>
+                        </li>
+                    </ul>
+                    <a href="#signup" class="block text-center bg-white hover:bg-gray-50 text-primary font-bold py-3 rounded-lg border border-primary transition duration-200">
+                        Get Started
+                    </a>
+                </div>
+                <!-- Pro Plan (Most Popular) -->
+                <div class="bg-primary p-8 rounded-xl shadow-lg border border-primary relative flex flex-col transform scale-105">
+                    <div class="absolute -top-4 left-0 right-0 text-center">
+                        <span class="bg-yellow-400 text-gray-900 text-xs font-bold px-3 py-1 rounded-full">MOST POPULAR</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-white">Professional</h3>
+                    <p class="text-blue-100 mb-6">Ideal for professional designers</p>
+                    <div class="text-4xl font-bold mb-6 text-white">$49<span class="text-blue-100 text-sm font-normal">/month</span></div>
+                    <ul class="space-y-3 mb-8 text-white flex-grow">
+                        <li class="flex items-center">
+                            <i class="fas fa-check mr-2"></i>
+                            <span>Unlimited analyses</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check mr-2"></i>
+                            <span>Advanced AI feedback</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check mr-2"></i>
+                            <span>Priority support</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check mr-2"></i>
+                            <span>3D visualization</span>
+                        </li>
+                        <li class="flex items-center text-blue-100">
+                            <i class="fas fa-times mr-2"></i>
+                            <span>Team collaboration</span>
+                        </li>
+                    </ul>
+                    <a href="#signup" class="block text-center bg-white hover:bg-gray-50 text-primary font-bold py-3 rounded-lg transition duration-200">
+                        Get Started
+                    </a>
+                </div>
+                <!-- Enterprise Plan -->
+                <div class="bg-white p-8 rounded-xl shadow-md border border-gray-200 flex flex-col">
+                    <h3 class="text-xl font-bold mb-2">Enterprise</h3>
+                    <p class="text-gray-600 mb-6">For design teams and agencies</p>
+                    <div class="text-4xl font-bold mb-6">$99<span class="text-gray-500 text-sm font-normal">/month</span></div>
+                    <ul class="space-y-3 mb-8 flex-grow">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Unlimited analyses</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Premium AI feedback</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>24/7 dedicated support</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>3D visualization</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Team collaboration</span>
+                        </li>
+                    </ul>
+                    <a href="#signup" class="block text-center bg-white hover:bg-gray-50 text-primary font-bold py-3 rounded-lg border border-primary transition duration-200">
+                        Contact Sales
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-hero relative">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1615887625746-0a06c7427abf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80')] opacity-10 bg-center bg-cover"></div>
+        <div class="container mx-auto px-4 md:px-6 relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Ready to Transform Your Packaging Design Process?</h2>
+                <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+                    Join thousands of packaging professionals who are saving time and improving their designs with Insight Echoes.
+                </p>
+                <a href="#download" class="inline-block bg-white hover:bg-gray-100 text-primary font-bold py-4 px-10 rounded-lg shadow-lg transition duration-200 text-lg">
+                    Download Now
+                </a>
+                <p class="text-white/70 mt-4">Available for macOS and Windows</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
+                            <i class="fas fa-eye text-white text-lg"></i>
+                        </div>
+                        <span class="text-xl font-bold">Insight<span class="text-primary-light">Echoes</span></span>
+                    </div>
+                    <p class="text-gray-400 mb-6">
+                        AI-powered packaging analysis tool that helps designers create better product packaging.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-6">Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#features" class="text-gray-400 hover:text-white transition">Features</a></li>
+                        <li><a href="#how-it-works" class="text-gray-400 hover:text-white transition">How It Works</a></li>
+                        <li><a href="#pricing" class="text-gray-400 hover:text-white transition">Pricing</a></li>
+                        <li><a href="#testimonials" class="text-gray-400 hover:text-white transition">Testimonials</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-6">Company</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Careers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-6">Contact</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-start space-x-3">
+                            <i class="fas fa-envelope mt-1"></i>
+                            <span>contact@insightechoes.com</span>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <i class="fas fa-phone mt-1"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <i class="fas fa-map-marker-alt mt-1"></i>
+                            <span>123 Innovation Way<br>San Francisco, CA 94107</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500">
+                <p>&copy; 2023 Insight Echoes. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script for smooth scrolling -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

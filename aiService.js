@@ -23,7 +23,7 @@ async function getInitialQuestions(base64Image) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`
+                'Authorization': `Bearer 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`
             },
             body: JSON.stringify({
                 model: "google/gemini-2.0-flash-001",
@@ -80,7 +80,7 @@ async function analyzeImage(base64Image, answers) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`
+                'Authorization': `Bearer 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`
             },
             body: JSON.stringify({
                 model: "google/gemini-2.0-flash-001",
