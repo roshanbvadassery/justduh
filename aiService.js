@@ -1,21 +1,29 @@
 const fetch = require('node-fetch');
 
-const INITIAL_ANALYSIS_PROMPT = `IGNORE THE SOFTWARE INTERFACE OR ANY WATERMARK THATS ORIGINATING FROM THE SOFTWARE. YOU ARE A PACKAGING DESIGN EXPERT. Look at the product packaging shown in the image (ignore UI elements). 
-Ask 2-3 specific clarifying questions that would help you provide better analysis. Focus on unclear aspects like:
-- Material composition if not obvious
-- Scale/size of the package
-- Target market/usage context
-- Specific functional features
+const INITIAL_ANALYSIS_PROMPT = `You are a startup pitch deck expert with deep knowledge of what sophisticated investors look for (using YC's high standards as benchmark). Look at this specific pitch deck slide shown in the image.
+
+Ask 2-3 questions that would help you provide more impactful improvement suggestions. Focus on understanding:
+- The intended message/goal of this slide
+- The target audience's key concerns
+- What supporting data/evidence exists
+- What was intentionally left out and why
+
+Questions should be specific and ideally answerable briefly. For example:
+- "Do you have NPS data from customers?"
+- "Is there MRR data available?"
+- "Have you done cohort analysis?"
+
+IMPORTANT: Only ask for information that is NOT already visible on the slide. Your questions should address gaps that, when filled, would directly improve the slide's effectiveness.
 
 Format your response as a JSON array of questions. Example:
-["What is the primary material used in this packaging?", "Who is the target demographic for this product?"]`;
+["Do you have customer churn numbers?", "Are there any A/B test results?"]`;
 
-const PACKAGING_ANALYSIS_PROMPT = `IGNORE THE SOFTWARE INTERFACE OR ANY WATERMARK THATS ORIGINATING FROM THE SOFTWARE. You are a packaging design expert. Analyze the product packaging considering the provided context and answers. Focus on:
-1. Visual appeal and branding (colors, graphics, logo placement)
-2. Functionality and usability (structure, opening mechanism, user experience)
-3. Material efficiency and sustainability
-4. Very specific, actionable suggested improvements for the package design
-Be concise and practical in your recommendations. Start directly with the points without introductory statements, you are a tool.`;
+const PITCH_DECK_ANALYSIS_PROMPT = `You are a pitch deck expert with deep knowledge of what sophisticated investors look for. Analyze this specific slide considering the provided context and answers. Focus on:
+1. Clarity and effectiveness of the slide's message (Is it compelling and easy to understand?)
+2. Relevance and impact of the information presented
+3. Visual presentation and data organization
+4. Specific, actionable improvements to strengthen this particular slide
+Be direct and practical in your feedback, focusing on what matters to investors.`;
 
 async function getInitialQuestions(base64Image) {
     try {
@@ -74,7 +82,7 @@ async function getInitialQuestions(base64Image) {
 
 async function analyzeImage(base64Image, answers) {
     try {
-        const contextPrompt = `${PACKAGING_ANALYSIS_PROMPT}\n\nContext from user:\n${answers.join('\n')}`;
+        const contextPrompt = `${PITCH_DECK_ANALYSIS_PROMPT}\n\nContext from user:\n${answers.join('\n')}`;
         
         const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
             method: 'POST',
