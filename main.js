@@ -1,12 +1,8 @@
-const { app, BrowserWindow, screen, ipcMain, systemPreferences, desktopCapturer } = require('electron');
+const { app, BrowserWindow, screen, ipcMain } = require('electron');
 const path = require('path');
-const fs = require('fs');
-const os = require('os');
-const dotenv = require('dotenv');
-const { analyzeImage, getInitialQuestions } = require('./aiService');
-dotenv.config();
 
 let mainWindow;
+let clickCount = 0;
 
 function createWindow() {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
@@ -14,7 +10,7 @@ function createWindow() {
   // Create a window that's always on top
   mainWindow = new BrowserWindow({
     width: 100,
-    height: 70, // Increased height to accommodate status message
+    height: 70,
     frame: false,  // Remove window frame
     transparent: true,  // Make window transparent
     alwaysOnTop: true,  // Keep window on top
@@ -63,103 +59,14 @@ function createWindow() {
   }, 1000); // Check every second
 }
 
-// Request screen capture permissions on macOS
 app.whenReady().then(() => {
-  if (process.platform === 'darwin') {
-    // Request screen recording permission
-    systemPreferences.getMediaAccessStatus('screen');
-  }
   createWindow();
   
-  // Add IPC handlers
-  ipcMain.on('resize-window', (event, width, height) => {
-    if (mainWindow) {
-      mainWindow.setSize(width, height);
-    }
-  });
-  
-  // Handle taking a screenshot
-  ipcMain.handle('take-screenshot', async () => {
-    try {
-      // Remember window position so we can restore it
-      const windowBounds = mainWindow.getBounds();
-      const wasVisible = mainWindow.isVisible();
-      
-      // First, move window off-screen before hiding it
-      // This ensures it won't appear in the screenshot even if 
-      // the hide operation takes time to complete
-      mainWindow.setBounds({ x: -10000, y: -10000, width: 1, height: 1 });
-      
-      // Then hide the window 
-      mainWindow.hide();
-      
-      // Wait longer for the window to completely hide and screen to refresh
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
-      // Capture the screen
-      const sources = await desktopCapturer.getSources({
-        types: ['screen'],
-        thumbnailSize: { width: 1920, height: 1080 }
-      });
-      
-      // Restore the window to its original size and position
-      if (wasVisible) {
-        mainWindow.setBounds(windowBounds);
-        mainWindow.show();
-        mainWindow.moveTop();
-      }
-      
-      if (!sources || sources.length === 0) {
-        throw new Error('No screen source found');
-      }
-      
-      // Get the first screen
-      const mainSource = sources[0];
-      const screenshot = mainSource.thumbnail.toDataURL();
-      
-      // Get base64 data
-      const base64Data = screenshot.replace(/^data:image\/png;base64,/, "");
-      const buffer = Buffer.from(base64Data, 'base64');
-      
-      // Create file path in user's pictures directory
-      const userHome = os.homedir();
-      const picturesDir = path.join(userHome, 'Pictures', 'ScreenshotApp');
-      
-      // Create directory if it doesn't exist
-      if (!fs.existsSync(picturesDir)) {
-        fs.mkdirSync(picturesDir, { recursive: true });
-      }
-      
-      // Generate filename with timestamp
-      const timestamp = new Date().toISOString().replace(/:/g, '-').replace(/\..+/, '');
-      const filePath = path.join(picturesDir, `screenshot-${timestamp}.png`);
-      
-      // Save the file
-      fs.writeFileSync(filePath, buffer);
-      
-      return { 
-        success: true, 
-        filePath,
-        base64Data // Add base64 data to the response
-      };
-    } catch (error) {
-      console.error('Error taking screenshot:', error);
-      return { success: false, error: error.message };
-    }
-  });
-
-  // Add these new IPC handlers
-  ipcMain.handle('get-questions', async (event, base64Image) => {
-    try {
-      return await getInitialQuestions(base64Image);
-    } catch (error) {
-      console.error('Error getting questions:', error);
-      throw error;
-    }
-  });
-
-  ipcMain.handle('analyze-image', async (event, base64Image, answers) => {
-    return await analyzeImage(base64Image, answers);
+  // Handle the duh button click
+  ipcMain.handle('duh-clicked', () => {
+    clickCount++;
+    console.log(`Duh button clicked! Count: ${clickCount}`);
+    return clickCount;
   });
 });
 

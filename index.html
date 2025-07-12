@@ -1,194 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Overlay Button</title>
+    <title>justduh.com</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <button id="overlay-button">Run</button>
-    <div id="status-message">Review saved!</div>
-    <div id="error-log"></div>
-    <div id="analysis-panel">
-        <div class="close-button">x</div>
-        <div class="analysis-title">Analysis and Suggestions</div>
-        <img id="screenshot-preview" style="display: none;" />
-        <div class="questions-section" style="display: none;">
-            <div id="questions-container"></div>
-            <button id="submit-answers">Submit Answers</button>
-        </div>
-        <div class="analysis-content">Analyzing screenshot...</div>
-    </div>
+    <button id="duh-button">duh.</button>
     <script>
-        let errorLog = document.getElementById('error-log');
+        let clickCount = 0;
         
-        // Simple logging function that shows in UI and console
-        /*function log(message) {
-            console.log(message);
-            const timestamp = new Date().toISOString().substring(11, 19);
-            errorLog.innerHTML += `[${timestamp}] ${message}<br>`;
-            errorLog.style.display = 'block';
-        }*/
-        
-        function showError(message) {
-            console.error(message);
-            const timestamp = new Date().toISOString().substring(11, 19);
-            errorLog.innerHTML += `[${timestamp}] ERROR: ${message}<br>`;
-            errorLog.style.display = 'block';
-            // Increase window height to show errors
+        document.getElementById('duh-button').addEventListener('click', async () => {
             try {
-                window.electron.ipcRenderer.send('resize-window', 250, 200);
-            } catch (e) {
-                console.error('Failed to resize: ' + e);
-            }
-        }
-        
-        // Modify the button click event listener to remove the logging
-        document.getElementById('overlay-button').addEventListener('click', () => {
-            takeScreenshot();
-        });
-        
-        // Add this near the top with other element selections
-        document.querySelector('.close-button').addEventListener('click', () => {
-            document.getElementById('analysis-panel').style.display = 'none';
-            window.electron.ipcRenderer.send('resize-window', 100, 70);
-        });
-        
-        let currentBase64Image = null;
-        
-        async function takeScreenshot() {
-            const button = document.getElementById('overlay-button');
-            const originalText = button.textContent;
-            const analysisPanel = document.getElementById('analysis-panel');
-            
-            try {
-                // Add transition class before changing text
-                button.classList.add('analyzing');
-                button.textContent = 'Analyzing...';
-                
-                const result = await window.electron.ipcRenderer.invoke('take-screenshot');
-                
-                if (!result.success) {
-                    throw new Error(result.error);
-                }
-                
-                currentBase64Image = result.base64Data;
-                analysisPanel.style.display = 'block';
-                analysisPanel.offsetHeight; // Force reflow
-                analysisPanel.classList.add('visible');
-                
-                // Smooth transition back to original state
-                setTimeout(() => {
-                    button.classList.remove('analyzing');
-                    button.textContent = originalText;
-                }, 300);
-                
-                // Display the screenshot
-                const screenshotPreview = document.getElementById('screenshot-preview');
-                screenshotPreview.src = `data:image/png;base64,${result.base64Data}`;
-                
-                // Resize window to show analysis and image
-                window.electron.ipcRenderer.send('resize-window', 320, 400);
-                
-                // Get clarifying questions
-                const analysisContent = document.querySelector('.analysis-content');
-                analysisContent.classList.add('visible');
-                analysisContent.innerHTML = "Getting questions...";
-                
-                const questions = await window.electron.ipcRenderer.invoke('get-questions', result.base64Data);
-                
-                // Display questions with animation
-                const questionsSection = document.querySelector('.questions-section');
-                const questionsContainer = document.getElementById('questions-container');
-                questionsContainer.innerHTML = questions.map((q, i) => `
-                    <div class="question-item">
-                        <p>${q}</p>
-                        <input type="text" 
-                               id="answer-${i}" 
-                               placeholder="Your answer..." 
-                               style="-webkit-app-region: no-drag">
-                    </div>
-                `).join('');
-                
-                analysisContent.classList.remove('visible');
-                setTimeout(() => {
-                    analysisContent.style.display = 'none';
-                    questionsSection.style.display = 'block';
-                    // Force a reflow
-                    questionsSection.offsetHeight;
-                    questionsSection.classList.add('visible');
-                }, 300);
-                
+                clickCount = await window.electron.ipcRenderer.invoke('duh-clicked');
+                console.log(`Frontend: Button clicked ${clickCount} times`);
             } catch (error) {
-                analysisPanel.style.display = 'block';
-                analysisPanel.classList.add('visible');
-                
-                const analysisContent = document.querySelector('.analysis-content');
-                analysisContent.classList.add('visible');
-                analysisContent.innerHTML = "⚠️ Failed to capture screenshot. Please try again.";
-                
-                // Smooth error state transition
-                button.classList.remove('analyzing');
-                button.classList.add('error');
-                button.textContent = 'Error!';
-                
-                setTimeout(() => {
-                    analysisPanel.classList.remove('visible');
-                    setTimeout(() => {
-                        analysisPanel.style.display = 'none';
-                        // Smooth transition back to original state
-                        button.classList.remove('error');
-                        button.textContent = originalText;
-                    }, 300);
-                }, 3000);
+                console.error('Error clicking duh button:', error);
             }
-        }
-
-        document.getElementById('submit-answers').addEventListener('click', async () => {
-            const answers = Array.from(document.querySelectorAll('.question-item input'))
-                .map(input => `Q: ${input.previousElementSibling.textContent}\nA: ${input.value}`);
-            
-            const questionsSection = document.querySelector('.questions-section');
-            const analysisContent = document.querySelector('.analysis-content');
-            
-            questionsSection.classList.remove('visible');
-            setTimeout(() => {
-                questionsSection.style.display = 'none';
-                analysisContent.style.display = 'block';
-                analysisContent.offsetHeight; // Force reflow
-                analysisContent.classList.add('visible');
-                analysisContent.innerHTML = "Analyzing with your input...";
-                
-                analyzeAndDisplayResults(answers);
-            }, 300);
         });
-
-        async function analyzeAndDisplayResults(answers) {
-            try {
-                const analysis = await window.electron.ipcRenderer.invoke('analyze-image', currentBase64Image, answers);
-                const analysisContent = document.querySelector('.analysis-content');
-                
-                analysisContent.classList.remove('visible');
-                setTimeout(() => {
-                    // More aggressive cleanup of asterisks and formatting
-                    const cleanedAnalysis = analysis
-                        .replace(/^\s*\*+\s*$/gm, '') // Remove lines with only asterisks
-                        .replace(/^\s*\*+\s*/gm, '') // Remove asterisks at the start of lines
-                        .replace(/\s*\*+\s*$/gm, '') // Remove asterisks at the end of lines
-                        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                        .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                        .split('\n')
-                        .filter(line => line.trim()) // Remove empty lines
-                        .map(line => `<p>${line}</p>`)
-                        .join('');
-                        
-                    analysisContent.innerHTML = cleanedAnalysis;
-                    analysisContent.offsetHeight; // Force reflow
-                    analysisContent.classList.add('visible');
-                }, 300);
-            } catch (error) {
-                document.querySelector('.analysis-content').innerHTML = "Error generating analysis. Please try again.";
-            }
-        }
     </script>
 </body>
 </html> 

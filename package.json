@@ -1,15 +1,15 @@
 {
-  "name": "overlay-app",
+  "name": "justduh",
   "version": "1.0.0",
-  "description": "Overlay button application with screenshot capability",
+  "description": "Just a floating duh button",
   "main": "main.js",
-  "author": "Overlay App Team",
+  "author": "justduh.com",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder"
   },
   "build": {
-    "appId": "com.overlay.app",
+    "appId": "com.justduh.app",
     "mac": {
       "category": "public.app-category.utilities",
       "hardenedRuntime": true,
@@ -19,10 +19,7 @@
       "target": "nsis"
     }
   },
-  "dependencies": {
-    "dotenv": "^16.5.0",
-    "node-fetch": "^2.7.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "electron": "^35.1.5",
     "electron-builder": "^26.0.12"
