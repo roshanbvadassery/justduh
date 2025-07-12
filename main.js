@@ -9,8 +9,8 @@ function createWindow() {
   
   // Create a window that's always on top
   mainWindow = new BrowserWindow({
-    width: 100,
-    height: 70,
+    width: 220,
+    height: 200,
     frame: false,  // Remove window frame
     transparent: true,  // Make window transparent
     alwaysOnTop: true,  // Keep window on top
@@ -66,6 +66,13 @@ app.whenReady().then(() => {
   ipcMain.handle('duh-clicked', () => {
     clickCount++;
     console.log(`Duh button clicked! Count: ${clickCount}`);
+    return clickCount;
+  });
+  
+  // Handle the reset counter request
+  ipcMain.handle('reset-counter', () => {
+    clickCount = 0;
+    console.log('Counter reset to 0');
     return clickCount;
   });
   
