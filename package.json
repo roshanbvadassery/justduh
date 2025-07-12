@@ -12,7 +12,7 @@
     "appId": "com.justduh.app",
     "mac": {
       "category": "public.app-category.utilities",
-      "hardenedRuntime": true,
+      "hardenedRuntime": false,
       "entitlements": "entitlements.plist"
     },
     "win": {

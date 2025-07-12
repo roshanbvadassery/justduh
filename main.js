@@ -68,6 +68,12 @@ app.whenReady().then(() => {
     console.log(`Duh button clicked! Count: ${clickCount}`);
     return clickCount;
   });
+  
+  // Handle the close app request (ESC + duh)
+  ipcMain.handle('close-app', () => {
+    console.log('Close app requested - quitting');
+    app.quit();
+  });
 });
 
 app.on('window-all-closed', () => {
