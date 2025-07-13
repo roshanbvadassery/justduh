@@ -3,6 +3,9 @@ let isEscapePressed = false;
 let isShiftPressed = false;
 let controlPanel = null;
 
+// Create audio object for the duh press sound
+const duhPressAudio = new Audio('assets/duh-press.mp3');
+
 // Initialize control panel when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     controlPanel = new window.ControlPanel();
@@ -29,6 +32,12 @@ document.addEventListener('keyup', (event) => {
 
 document.getElementById('duh-button').addEventListener('click', async () => {
     try {
+        // Play the duh press sound every time the button is clicked
+        duhPressAudio.currentTime = 0; // Reset to start in case it's already playing
+        duhPressAudio.play().catch(error => {
+            console.error('Error playing duh press sound:', error);
+        });
+
         if (isEscapePressed) {
             // ESC is being held down - close the app
             console.log('ESC + duh clicked - closing app');

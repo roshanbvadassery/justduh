@@ -1,6 +1,6 @@
 {
   "name": "justduh",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "A deceptively simple floating desktop button that sits quietly on your screen, always accessible with a single click.",
   "main": "main.js",
   "author": "justduh.com",
@@ -26,7 +26,8 @@
     "script.js",
     "components/",
     "bin/",
-    "entitlements.plist"
+    "entitlements.plist",
+    "assets/"
   ],
   "bin": {
     "justduh": "./bin/justduh.js",
