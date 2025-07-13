@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>duh.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'japanese': ['Hiragino Sans', 'Yu Gothic', 'Meiryo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white min-h-screen flex flex-col">
+    <!-- Header with subtle navigation -->
+    <header class="w-full py-8 px-8">
+        <nav class="max-w-4xl mx-auto flex justify-between items-center">
+            <div class="text-2xl font-light tracking-wider text-gray-900">
+                duh<span class="text-gray-400">.</span>
+            </div>
+            <div class="hidden md:flex space-x-8 text-sm font-light text-gray-600">
+                <a href="https://github.com/roshanbvadassery/justduh" class="hover:text-gray-900 transition-colors duration-300">contribute</a>
+                <a href="mailto:roshan@permissionless.net" class="hover:text-gray-900 transition-colors duration-300">contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main content area -->
+    <main class="flex-1 flex items-center justify-center px-8">
+        <div class="max-w-2xl text-center">
+            <!-- Hero section -->
+            <div class="mb-16">
+                <h1 class="text-6xl md:text-8xl font-extralight text-gray-900 mb-8 tracking-tight">
+                    just
+                    <span class="block text-gray-400 italic">duh.</span>
+                </h1>
+                
+                <div class="w-24 h-px bg-gray-300 mx-auto mb-8"></div>
+                
+                <p class="text-lg md:text-xl font-light text-gray-600 leading-relaxed max-w-lg mx-auto">
+                    Sometimes the most obvious solution
+                    <br>
+                    is the right one.
+                </p>
+            </div>
+
+            <!-- CTA section -->
+            <div class="space-y-6">
+                <a href="https://github.com/roshanbvadassery/justduh" target="_blank" class="group inline-flex items-center px-8 py-4 bg-white border border-gray-300 text-gray-900 font-light tracking-wide hover:bg-gray-50 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50">
+                    <svg class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform duration-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="group-hover:tracking-wider transition-all duration-300">get started</span>
+                </a>
+                
+                <div class="text-sm text-gray-400 font-light">
+                    or simply <a href="https://www.npmjs.com/package/justduh" class="hover:text-gray-600 transition-colors duration-300">npm i -g justduh</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-8 px-8">
+        <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center text-sm text-gray-400 font-light">
+            <div class="mb-4 md:mb-0">
+                © 2025 justduh.com
+            </div>
+            <div class="flex space-x-6">
+                <a href="mailto:roshan@permissionless.net" class="hover:text-gray-600 transition-colors duration-300">support</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Subtle animations on scroll -->
+    <script>
+        // Simple fade-in animation for elements
+        window.addEventListener('load', function() {
+            const elements = document.querySelectorAll('h1, p, button, nav, footer');
+            elements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html> 
