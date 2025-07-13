@@ -1,9 +1,37 @@
 {
   "name": "justduh",
-  "version": "1.0.0",
-  "description": "Just a floating duh button",
+  "version": "1.0.2",
+  "description": "A deceptively simple floating desktop button that sits quietly on your screen, always accessible with a single click.",
   "main": "main.js",
   "author": "justduh.com",
+  "license": "MIT",
+  "homepage": "https://justduh.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/justduh.git"
+  },
+  "keywords": [
+    "desktop",
+    "productivity",
+    "automation",
+    "floating-button",
+    "electron",
+    "utilities"
+  ],
+  "files": [
+    "main.js",
+    "preload.js",
+    "index.html",
+    "styles.css",
+    "script.js",
+    "components/",
+    "bin/",
+    "entitlements.plist"
+  ],
+  "bin": {
+    "justduh": "./bin/justduh.js",
+    "duh": "./bin/justduh.js"
+  },
   "scripts": {
     "start": "electron .",
     "build": "electron-builder"
@@ -19,9 +47,13 @@
       "target": "nsis"
     }
   },
-  "dependencies": {},
+  "dependencies": {
+    "electron": "^35.1.5"
+  },
   "devDependencies": {
-    "electron": "^35.1.5",
     "electron-builder": "^26.0.12"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }
