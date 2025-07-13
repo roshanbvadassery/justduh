@@ -2,6 +2,28 @@
 
 *The deceptively simple floating button that could change everything.*
 
+[![npm version](https://badge.fury.io/js/justduh.svg)](https://badge.fury.io/js/justduh)
+[![npm downloads](https://img.shields.io/npm/dm/justduh.svg)](https://www.npmjs.com/package/justduh)
+
+## Quick Start
+
+Get **just duh** up and running in seconds:
+
+```bash
+# Install globally
+npm install -g justduh
+
+# Run it
+justduh
+```
+
+Or try it instantly without installing:
+
+```bash
+# Run with npx (no installation needed)
+npx justduh
+```
+
 ## What is this?
 
 **just duh** is a minimalist floating desktop button that sits quietly on your screen, always accessible, always ready. On the surface, it's just a button that says "duh." But beneath that simplicity lies the potential for something much more powerful.
@@ -29,6 +51,52 @@ Access the hidden control panel with `Shift + click` to reveal:
 - Reset counter functionality
 - Application controls
 - *More features coming soon...*
+
+## Installation & Usage
+
+### 🚀 Option 1: Global Installation (Recommended)
+
+```bash
+# Install globally
+npm install -g justduh
+
+# Run from anywhere
+justduh
+# or
+duh
+```
+
+### ⚡ Option 2: Run Without Installing
+
+```bash
+# Run instantly with npx
+npx justduh
+```
+
+### 🛠️ Option 3: Development Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/justduh.git
+cd justduh
+
+# Install dependencies
+npm install
+
+# Run in development mode
+npm start
+
+# Build for production
+npm run build
+```
+
+## How to Use
+
+1. **Launch the app**: The button appears on your desktop
+2. **Position it**: Drag it to your preferred location
+3. **Start clicking**: Each click tracks your "duh" moments
+4. **Discover secrets**: Try different key combinations
+5. **Access controls**: Shift + click for the control panel
 
 ## The Vision
 
@@ -64,40 +132,46 @@ Access the hidden control panel with `Shift + click` to reveal:
 - **No Tracking**: We don't know what you're clicking
 - **Open Source**: Full transparency in how it works
 
-## Installation
-
-```bash
-# Install dependencies
-npm install
-
-# Run in development
-npm start
-
-# Build for production
-npm run build
-```
-
-## Usage
-
-1. **Launch the app**: The button appears on your desktop
-2. **Position it**: Drag it to your preferred location
-3. **Start clicking**: Each click tracks your "duh" moments
-4. **Discover secrets**: Try different key combinations
-5. **Access controls**: Shift + click for the control panel
-
 ## Technical Details
 
 - **Built with**: Electron for cross-platform compatibility
-- **Size**: Lightweight ~220x200px window
+- **Package size**: Lightweight and fast to install
+- **Window size**: Minimal ~220x200px window
 - **Performance**: Minimal resource usage
 - **Persistence**: Remembers position and settings
+- **Available on**: [npm](https://www.npmjs.com/package/justduh)
 
 ## Roadmap
 
 - **Phase 1**: ✅ Basic floating button with hidden features
+- **Phase 1.5**: ✅ Published on npm for easy installation
 - **Phase 2**: 🔄 Plugin system and customization options
 - **Phase 3**: 🔮 AI integration and smart features
 - **Phase 4**: 🌟 Community marketplace and sharing
+
+## Troubleshooting
+
+### Permission Issues on macOS/Linux
+If you get permission errors during installation:
+
+```bash
+# Set up npm to use a different directory
+mkdir ~/.npm-global
+npm config set prefix '~/.npm-global'
+echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
+
+# Now install
+npm install -g justduh
+```
+
+### Electron Not Found
+If you get "electron not found" errors:
+
+```bash
+# Try using npx instead
+npx justduh
+```
 
 ## Philosophy
 
@@ -126,4 +200,6 @@ MIT License - Because good ideas should be free to grow.
 
 *"It's not just a button. It's a philosophy."*
 
-**just duh** - Making the complex simple, one click at a time. 
+**just duh** - Making the complex simple, one click at a time.
+
+*Now available on npm: `npm install -g justduh`* 
